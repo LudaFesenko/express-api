@@ -1,0 +1,25 @@
+version: "3" # версия синтаксиса
+services:
+  express-app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - react-app
+    environment:
+      DATABASE_URL: "mongodb+srv://LF:lihqz0avffSr4yg4@cluster0.nqjxcbu.mongodb.net/db?retryWrites=true&w=majority&appName=Cluster0"
+  db:
+    image: prismagraphql/mongo-single-replica:5.0.3
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: LF
+      MONGO_INITDB_ROOT_PASSWORD: lihqz0avffSr4yg4
+  react-app:
+    build: ../react-client
+    ports:
+      - "80:80"
+
+volumes:
+  react_app:
